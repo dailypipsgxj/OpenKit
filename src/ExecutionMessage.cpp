@@ -102,7 +102,7 @@ Instrument ExecutionMessage::instrument() const
 	return d->instrument();
 }
 
-void ExecutionMessage::setInstrument(const Instrument& value)
+void ExecutionMessage::setInstrument(const QSharedPointer<Instrument> &value)
 {
 	Q_D(ExecutionMessage);
 	d->setInstrument(value);

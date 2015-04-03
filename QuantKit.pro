@@ -502,7 +502,6 @@ HEADERS +=\
     include/QuantKit/Account/AccountTransaction.h \
     include/QuantKit/AccountData/AccountDataEntry.h \
     include/QuantKit/AccountData/AccountDataField.h \
-    include/QuantKit/AccountData/AccountDataFieldList.h \
     include/QuantKit/AccountData/AccountDataManager.h \
     include/QuantKit/AccountData/AccountDataSnapshot.h \
     include/QuantKit/AccountData/AccountDataType.h \
@@ -561,7 +560,9 @@ HEADERS +=\
     include/QuantKit/Streamer/TickStreamer.h \
     include/QuantKit/Streamer/TimeSeriesItemStreamer.h \
     include/QuantKit/Streamer/TimeSpanStreamer.h \
-    include/QuantKit/Streamer/TradeStreamer.h
+    include/QuantKit/Streamer/TradeStreamer.h \
+    include/QuantKit/AccountData/AccountData.h \
+    include/QuantKit/Fill.h
 
 unix {
     target.path = /usr/lib

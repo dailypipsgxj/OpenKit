@@ -57,8 +57,22 @@ public:
 	void setText(const QString& value);
 
 private:
-	QK_DECLARE_PRIVATE(ExecutionReport)
-
+    unsigned char m_currencyId;
+    ExecType m_execType;
+    OrderType m_orderType;
+    OrderSide m_orderSide;
+    TimeInForce m_tif;
+    OrderStatus m_orderStatus;
+    double m_lastPx;
+    double m_avgPx;
+    double m_ordQty;
+    double m_cumQty;
+    double m_lastQty;
+    double m_leavesQty;
+    double m_price;
+    double m_stopPx;
+    double m_commission;
+    QString m_text;
 };
 
 } // namespace QuantKit

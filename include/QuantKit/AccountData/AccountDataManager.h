@@ -14,7 +14,7 @@ class AccountData;
 class AccountDataSnapshot;
 class AccountDataFieldList;
 
-class QUANTKIT_EXPORT AccountDataManager
+class QUANTKIT_EXPORT AccountDataManager Q_DECL_FINAL
 {
 public:
 	explicit AccountDataManager(const Framework& framework);

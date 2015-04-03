@@ -11,7 +11,7 @@ class AccountDataSnapshotPrivate;
 
 class AccountDataEntry;
 
-class QUANTKIT_EXPORT AccountDataSnapshot
+class QUANTKIT_EXPORT AccountDataSnapshot Q_DECL_FINAL
 {
 public:
 	explicit AccountDataSnapshot(const AccountDataEntry& entries);

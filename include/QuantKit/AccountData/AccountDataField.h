@@ -8,9 +8,7 @@
 
 namespace QuantKit {
 
-typedef QList<AccountDataField> AccountDataFieldList;
-
-class QUANTKIT_EXPORT AccountDataField
+class QUANTKIT_EXPORT AccountDataField Q_DECL_FINAL
 {
 public:
     // predefine name const

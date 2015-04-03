@@ -2,42 +2,41 @@
 #define __QUANTKIT_EXECUTIONMESSAGE_H__
 
 #include <QuantKit/quantkit_global.h>
+#include <QList>
 #include <QVariant>
-
-#include <QuantKit/DataObject.h>
+#include <QSharedPointer>
 
 namespace QuantKit {
-
-class ExecutionMessagePrivate;
 
 class Order;
 class Instrument;
 class ObjectTable;
 
-class QUANTKIT_EXPORT ExecutionMessage : public DataObject
+class QUANTKIT_EXPORT ExecutionMessage
 {
 public:
 	ExecutionMessage();
 	~ExecutionMessage();
 
 public:
-	int id() const;
-	Order order() const;
-	void setOrder(const Order& value);
+    int id() const { return m_ordId; }
+    QSharedPointer<Order> order() const { return m_order; }
+    void setOrder(const QSharedPointer<Order>& order) { m_order = order; }
 	int orderId() const;
 	void setOrderId(int value);
-	Instrument instrument() const;
-	void setInstrument(const Instrument& value);
+    QSharedPointer<Instrument> instrument() const { return m_instrument; }
+    void setInstrument(const QSharedPointer<Instrument>& inst) { m_instrument = inst; }
 	int instrumentId() const;
 	QVariant item(int index) const;
 	void setItem(int index, const QVariant& value);
 
-protected:
-	ExecutionMessage(ExecutionMessagePrivate& dd);
-
 private:
-	QK_DECLARE_PRIVATE(ExecutionMessage)
-
+    int m_ordId;
+    QSharedPointer<Order> m_order;
+    int m_orderId;
+    Instrument m_instrument;
+    int m_instrumentId;
+    QList<QVariant> m_objectTable;
 };
 
 } // namespace QuantKit

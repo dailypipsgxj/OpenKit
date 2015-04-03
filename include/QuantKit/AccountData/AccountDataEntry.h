@@ -12,7 +12,7 @@ class AccountDataEntryPrivate;
 
 class AccountData;
 
-class QUANTKIT_EXPORT AccountDataEntry
+class QUANTKIT_EXPORT AccountDataEntry Q_DECL_FINAL
 {
 public:
 	AccountDataEntry(const QString& account, const AccountData& values, const AccountData& positions, const AccountData& orders);
