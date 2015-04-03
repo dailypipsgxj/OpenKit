@@ -1,9 +1,11 @@
 #ifndef __QUANTKIT_EVENT_H__
 #define __QUANTKIT_EVENT_H__
 
-#include <QDateTime>
+#include <QuantKit/quantkit_global.h>
 #include <QDebug>
-#include <QuantKit/EventType.h>
+#include <QDateTime>
+#include <QString>
+#include <QSharedDataPointer>
 
 namespace QuantKit {
 
@@ -12,45 +14,38 @@ class EventPrivate;
 class QUANTKIT_EXPORT Event
 {
 public:
-    Event(const Event& other);
-    Event& operator=(const Event& other);
-    virtual ~Event();
+	Event();
+	explicit Event(const QDateTime& dateTime);
+	~Event();
 
-    void swap(Event &other) { d_ptr.swap(other.d_ptr); }
+	Event(const Event &other);
+	Event& operator=(const Event &other);
+#ifdef Q_COMPILER_RVALUE_REFS
+    Event &operator=(Event &&other) { swap(other); return *this; }
+#endif
 
-    bool operator==(const Event& other) const { return d_ptr == other.d_ptr; }
-    inline bool operator!=(const Event& other) const { return !(this->operator==(other));}
+    void swap(Event& other) { d.swap(other.d); }
 
+	bool operator==(const Event &other) const;
+	inline bool operator!=(const Event &other) const { return !(this->operator==(other));  }
 public:
-    QDateTime dateTime() const;
-    void setDateTime(const QDateTime& dateTime);
-
-    unsigned char typeId() const;
-    //QString toString() const;
+	QDateTime dateTime() const;
+	void setDateTime(const QDateTime& value);
+	unsigned char typeId() const;
+	QString toString() const;
 
 protected:
-    explicit Event(EventPrivate& dd);
-    QSharedDataPointer<EventPrivate> d_ptr;
-    friend QUANTKIT_EXPORT QDebug operator<<(QDebug dbg, const Event& e);
+	Event(EventPrivate& dd);
+    QSharedDataPointer<EventPrivate> d;
 
 private:
-    QK_DECLARE_PRIVATE(Event)
+	friend QDebug operator<<(QDebug dbg, const Event& event);
 };
 
-QUANTKIT_EXPORT QDebug operator<<(QDebug dbg, const Event& e);
-
-class DataObjectPrivate;
-
-class QUANTKIT_EXPORT DataObject : public Event
-{
-protected:
-    DataObject(DataObjectPrivate& dd);
-};
-
+QUANTKIT_EXPORT QDebug operator<<(QDebug dbg, const Event& event);
 
 } // namespace QuantKit
 
 Q_DECLARE_SHARED(QuantKit::Event)
-Q_DECLARE_SHARED(QuantKit::DataObject)
 
 #endif // __QUANTKIT_EVENT_H__

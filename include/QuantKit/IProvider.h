@@ -1,31 +1,27 @@
-#ifndef IPROVIDER_H
-#define IPROVIDER_H
+#ifndef __QUANTKIT_IPROVIDER_H__
+#define __QUANTKIT_IPROVIDER_H__
 
 #include <QuantKit/quantkit_global.h>
+#include <QDebug>
 #include <QString>
+
+#include <QuantKit/ProviderStatus.h>
 
 namespace QuantKit {
 
-enum ProviderStatus
+class QUANTKIT_EXPORT IProvider
 {
-    Connecting,
-    Connected,
-    Disconnecting,
-    Disconnected
-};
-
-class QUANTKIT_EXPORT IProvier
-{
-    virtual ProviderStatus status() = 0;
-    virtual bool isConnected() = 0;
-    virtual bool isDisconnected() = 0;
-    virtual unsigned char id() = 0;
-    virtual QString name() = 0;
-    virtual void connect() = 0;
-    virtual void disconnect() = 0;
+public:
+	virtual ProviderStatus status() const = 0;
+	virtual bool isConnected() const = 0;
+	virtual bool isDisconnected() const = 0;
+	virtual unsigned char id() const = 0;
+	virtual QString name() const = 0;
+	virtual void connect() = 0;
+	virtual bool connect(int timeout) = 0;
+	virtual void disconnect() = 0;
 };
 
 } // namespace QuantKit
 
-#endif // IPROVIDER_H
-
+#endif // __QUANTKIT_IPROVIDER_H__

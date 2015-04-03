@@ -1,25 +1,48 @@
 #include <QuantKit/Event/OnDisconnect.h>
-#include <QuantKit/Event_p.h>
+
+#include "Event_p.h"
+#include <QuantKit/EventType.h>
 
 namespace QuantKit {
 
-class OnDisconnectPrivate Q_DECL_FINAL : public EventPrivate
+class OnDisconnectPrivate : public EventPrivate
 {
 public:
-    OnDisconnectPrivate() : EventPrivate() {}
-    virtual ~OnDisconnectPrivate() {}
+	OnDisconnectPrivate();
+	virtual ~OnDisconnectPrivate();
 
 public:
-    virtual unsigned char typeId() const Q_DECL_OVERRIDE { return EventType::OnDisconnect; }
-    virtual OnDisconnectPrivate* clone() Q_DECL_OVERRIDE { return new OnDisconnectPrivate(*this); }
+	virtual unsigned char typeId() const Q_DECL_OVERRIDE
+	{
+		return EventType::OnDisconnect;
+	}
+
+	virtual OnDisconnectPrivate* clone() Q_DECL_OVERRIDE { return new OnDisconnectPrivate(*this); }
 };
 
-} // namespace QuantKit
+} // namepsace QuantKit
+
 
 using namespace QuantKit;
 
-OnDisconnect::OnDisconnect()
-    : Event(*new OnDisconnectPrivate)
+OnDisconnectPrivate::OnDisconnectPrivate()
 {
 }
+
+OnDisconnectPrivate::~OnDisconnectPrivate ()
+{
+}
+
+
+// Pubic API 
+
+OnDisconnect::OnDisconnect()
+	: Event(*new OnDisconnectPrivate)
+{
+}
+
+OnDisconnect::~OnDisconnect()
+{
+}
+
 

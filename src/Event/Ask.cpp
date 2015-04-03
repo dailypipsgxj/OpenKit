@@ -1,37 +1,68 @@
 #include <QuantKit/Event/Ask.h>
-#include <QuantKit/Event/Tick_p.h>
+
+
+#include "Tick_p.h"
+#include <QuantKit/EventType.h>
 
 namespace QuantKit {
 
-class AskPrivate Q_DECL_FINAL : public TickPrivate
+class AskPrivate : public TickPrivate
 {
 public:
-    AskPrivate(const QDateTime& dateTime, unsigned char providerId, unsigned char instrumentId, double price, int size)
-        : TickPrivate(dateTime, providerId, instrumentId, price, size) {}
-
-    AskPrivate(const QDateTime& dateTime, const QDateTime& exchangeDateTime, unsigned char providerId, unsigned char instrumentId, double price, int size)
-        : TickPrivate(dateTime, exchangeDateTime, providerId, instrumentId, price, size) {}
-
-    virtual ~AskPrivate() {}
+	AskPrivate();
+	AskPrivate(const QDateTime& dateTime, unsigned char providerId, int instrument, double price, int size);
+	AskPrivate(const QDateTime& dateTime, const QDateTime& exchangeDateTime, unsigned char providerId, int instrument, double price, int size);
+	virtual ~AskPrivate();
 
 public:
-    virtual unsigned char typeId() const Q_DECL_OVERRIDE { return EventType::Ask; }
-    virtual AskPrivate* clone() Q_DECL_OVERRIDE { return new AskPrivate(*this); }
+	virtual unsigned char typeId() const Q_DECL_OVERRIDE { return EventType::Ask; }
+	virtual QString toString() const Q_DECL_OVERRIDE { return "Ask"; }
+	virtual AskPrivate* clone() Q_DECL_OVERRIDE { return new AskPrivate(*this); }
 };
 
-} // namespace QuantKit
+} // namepsace QuantKit
+
 
 using namespace QuantKit;
 
-// public API
-
-Ask::Ask(const QDateTime& dateTime, unsigned char providerId, unsigned char instrumentId, double price, int size)
-    : Tick(*new AskPrivate(dateTime, providerId, instrumentId, price, size))
+AskPrivate::AskPrivate()
 {
 }
 
-Ask::Ask(const QDateTime& dateTime, const QDateTime& exchangeDateTime, unsigned char providerId, unsigned char instrumentId, double price, int size)
-    : Tick(*new AskPrivate(dateTime, exchangeDateTime, providerId, instrumentId, price, size))
+AskPrivate::AskPrivate(const QDateTime& dateTime, unsigned char providerId, int instrument, double price, int size)
+	: TickPrivate (dateTime, providerId, instrument, price, size)
 {
 }
+
+AskPrivate::AskPrivate(const QDateTime& dateTime, const QDateTime& exchangeDateTime, unsigned char providerId, int instrument, double price, int size)
+	: TickPrivate (dateTime, exchangeDateTime, providerId, instrument, price, size)
+{
+}
+
+AskPrivate::~AskPrivate ()
+{
+}
+
+
+// Pubic API 
+
+Ask::Ask()
+	: Tick(*new AskPrivate)
+{
+}
+
+Ask::Ask(const QDateTime& dateTime, unsigned char providerId, int instrument, double price, int size)
+	: Tick(*new AskPrivate(dateTime, providerId, instrument, price, size))
+{
+}
+
+Ask::Ask(const QDateTime& dateTime, const QDateTime& exchangeDateTime, unsigned char providerId, int instrument, double price, int size)
+	: Tick(*new AskPrivate(dateTime, exchangeDateTime, providerId, instrument, price, size))
+{
+}
+
+Ask::~Ask()
+{
+}
+
 
